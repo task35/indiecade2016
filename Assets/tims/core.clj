@@ -382,3 +382,27 @@
         (g/vec4 0 0 0
           (g* (gdiv t 100)
            val-2)))}}))
+
+;; demo fun
+(comment
+  (use 'arcadia.core)
+  
+  ;; clone cube
+  (set! (.name (instantiate (object-named "Cube")))
+        "Cube 2")
+  
+  ;; rotate both
+  (do
+    ;; rotate cube
+    (hook+ (object-named "Cube")
+           :update
+           #(.. % transform (Rotate 1 0 0)))
+    
+    ;; rotate cube 2
+    (hook+ (object-named "Cube 2")
+           :update
+           #(.. % transform (Rotate 0 1 0))))
+  
+  ;; reset rotations
+  (doseq [o (objects-named #"Cube.*")]
+    (set! (.. o transform rotation) Quaternion/identity)))
