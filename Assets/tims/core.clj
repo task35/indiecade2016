@@ -3,6 +3,7 @@
   (:use seascape.core
         arcadia.core
         arcadia.linear
+        common.core
         gamma-tools.core
         clojure.pprint)
   (:require [gamma.api :as g]
@@ -405,4 +406,7 @@
   
   ;; reset rotations
   (doseq [o (objects-named #"Cube.*")]
-    (set! (.. o transform rotation) Quaternion/identity)))
+    (set! (.. o transform rotation) Quaternion/identity))
+  
+  ;; next scene
+  (load-level "space"))
