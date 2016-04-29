@@ -196,7 +196,7 @@
   (cmpts [this t]
     (into [] (.GetComponents this t)))
   (cmpt+ [this t]
-    (.AddComponent this t))
+    (.AddComponent (.gameObject this) t))
   (cmpt- [this t]
     (do-components [x (.GetComponents this t)]
       (destroy x))) 
@@ -313,9 +313,9 @@
                  (partition 2)
                  (mapcat (fn [[n t]]
                            [(meta-tag n t) `(cmpt ~gobsym ~t)])))]
-     `(with-gob [~gobsym ~gob]
+     `(with-gobj [~gobsym ~gob]
         (let [~@dcls]
-          ~body)))))
+          ~@body)))))
 
 (defmacro if-cmpt
   "Execute body of code if `gob` has a component of type `cmpt-type`"
